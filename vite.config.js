@@ -14,7 +14,7 @@ export default defineConfig({
       }
     }
   },
-  // IIFE 构建后 HTML 中仍会输出 type="module"，用插件修正为普通 script 标签
+  // IIFE 构建后修正 HTML：将 type="module" 改为普通 script，并移至 body 末尾
   plugins: [
     {
       name: 'iife-html-fix',
@@ -23,9 +23,17 @@ export default defineConfig({
       transformIndexHtml: {
         order: 'post',
         handler(html) {
+          // 提取 src 路径，然后构建新标签插到 </body> 前
           return html.replace(
             /<script type="module" crossorigin src="(.*?)"><\/script>/g,
-            '<script src="$1"></script>'
+            ''
+          ).replace(
+            '</body>',
+            (match) => {
+              const srcMatch = html.match(/<script type="module" crossorigin src="(.*?)"><\/script>/);
+              const src = srcMatch ? srcMatch[1] : '';
+              return `<script src="${src}"></script>\n</body>`;
+            }
           );
         }
       }
