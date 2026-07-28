@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>流域电站运行监盘看板</title>
+</head>
+<body>
+<div class="container">
+
+  <!-- 标题栏 -->
+  <div class="header">
+    <h1>流域电站运行监盘看板</h1>
+  </div>
+
+  <!-- 汇总指标 -->
+  <div class="metrics" id="metrics"></div>
+
+  <!-- 筛选栏 -->
+  <div class="filter-bar">
+    <select id="basinFilter"></select>
+  </div>
+
+  <!-- 电站卡片网格 -->
+  <div class="station-grid" id="stationGrid"></div>
+
+  <!-- 告警列表 -->
+  <div class="alarm-section">
+    <h2>实时告警列表</h2>
+    <table class="alarm-table">
+      <thead>
+        <tr>
+          <th>等级</th>
+          <th>电站名称</th>
+          <th>测点</th>
+          <th>开始时间</th>
+        </tr>
+      </thead>
+      <tbody id="alarmBody"></tbody>
+    </table>
+    <div id="alarmEmpty" class="alarm-empty" style="display:none;">暂无告警数据</div>
+  </div>
+
+</div>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>
